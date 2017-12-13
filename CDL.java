@@ -1,5 +1,10 @@
 package org.json;
 
+import prova.JSONArray;
+import prova.JSONException;
+import prova.JSONObject;
+import prova.JSONTokener;
+
 /*
 Copyright (c) 2002 JSON.org
 
@@ -52,7 +57,7 @@ public class CDL {
      * @return The value string, or null if empty.
      * @throws JSONException if the quoted string is badly formed.
      */
-	public static for1(char c, char q, StringBuffer sb ) {
+	public static void for1(char c, char q, StringBuffer sb ) {
 		for (;;) {
     		c = x.next();
     		if (c == q) {
@@ -99,11 +104,11 @@ public class CDL {
      * @return A JSONArray of strings.
      * @throws JSONException
      */
-    public static ifMethod(chat c,JSONArray ja) {
+    public static JSONArray ifMethod(char c,JSONArray ja) {
     	if (c == '\n' || c == '\r' || c == 0) {
             return ja;
     }
-    public static for3Method(char c,JSONArray ja) {
+    public static void for3Method(char c,JSONArray ja) {
     	for (;;) {                
             if (c == ',') {
                 break;
@@ -118,16 +123,17 @@ public class CDL {
             c = x.next();
         }
     }
-    public static for2Method( JSONArray ja) {
+    public static  Object for2Method( JSONArray ja) {
     	for (;;) {
-            String value = getValue(x);
+            JSONTokener x;
+			String value = getValue(x);
             char c = x.next();
             if (value == null || 
             		(ja.length() == 0 && value.length() == 0 && c != ',')) {
                 return null;
             }
             ja.put(value);
-            for3Method(c, ja)
+            for3Method(c, ja);
             
         }
     }
@@ -223,7 +229,7 @@ public class CDL {
      * @param ja A JSONArray of strings.
      * @return A string ending in NEWLINE.
      */
-    public static if2Method(String s, StringBuffer sb ) {
+    public static void if2Method(String s, StringBuffer sb ) {
     	  if (s.length() > 0 && (s.indexOf(',') >= 0 || s.indexOf('\n') >= 0 || 
           		s.indexOf('\r') >= 0 || s.indexOf(0) >= 0 || 
           		s.charAt(0) == '"')) {
@@ -238,7 +244,7 @@ public class CDL {
               sb.append('"');
           } 
     }
-    public static if1Method(Object o,StringBuffer sb) {
+    public static void if1Method(Object o,StringBuffer sb) {
     if (o != null) {
         String s = o.toString();
         if2Method(s, sb);
@@ -247,7 +253,7 @@ public class CDL {
         }
     }
     }
-    public static for4Method(StringBuffer sb) {
+    public static void for4Method(StringBuffer sb,JSONArray ja ) {
     	for (int i = 0; i < ja.length(); i += 1) {
             if (i > 0) {
                 sb.append(',');
@@ -259,7 +265,7 @@ public class CDL {
     }
     public static String rowToString(JSONArray ja) {
         StringBuffer sb = new StringBuffer();
-        for4Method(sb);
+        for4Method(sb, ja);
         
         sb.append('\n');
         return sb.toString();
@@ -308,3 +314,4 @@ public class CDL {
         return sb.toString();
     }
 }
+
