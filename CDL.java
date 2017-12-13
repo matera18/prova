@@ -57,7 +57,7 @@ public class CDL {
      * @return The value string, or null if empty.
      * @throws JSONException if the quoted string is badly formed.
      */
-	public static void for1(char c, char q, StringBuffer sb ) {
+	public static void for1(char c, char q, StringBuffer sb,JSONTokener x ) {
 		for (;;) {
     		c = x.next();
     		if (c == q) {
@@ -69,7 +69,7 @@ public class CDL {
             sb.append(c);
     	}
 	}
-	public static String switchMethodString(char q, char c,StringBuffer sb) {
+	public static String switchMethodString(char q, char c,StringBuffer sb,JSONTokener x) {
 		 switch (c) {
 	        case 0:
 	            return null;
@@ -77,7 +77,7 @@ public class CDL {
 	        case '\'':
 	        	q = c;
 	        	sb = new StringBuffer();
-	        	for1(c, q, sb );
+	        	for1(c, q, sb, x );
 	            return sb.toString();
 	        case ',':
 	            x.back();
@@ -95,7 +95,7 @@ public class CDL {
             c = x.next();
         } while (c == ' ' || c == '\t');
         
-        switchMethodString(q, c, sb);
+        switchMethodString(q, c, sb,x);
     }
 
     /**
@@ -108,7 +108,7 @@ public class CDL {
     	if (c == '\n' || c == '\r' || c == 0) {
             return ja;
     }
-    public static void for3Method(char c,JSONArray ja) {
+    public static void for3Method(char c,JSONArray ja,JSONTokener x) {
     	for (;;) {                
             if (c == ',') {
                 break;
@@ -123,9 +123,8 @@ public class CDL {
             c = x.next();
         }
     }
-    public static  Object for2Method( JSONArray ja) {
+    public static  Object for2Method( JSONArray ja, JSONTokener x) {
     	for (;;) {
-            JSONTokener x;
 			String value = getValue(x);
             char c = x.next();
             if (value == null || 
@@ -133,13 +132,13 @@ public class CDL {
                 return null;
             }
             ja.put(value);
-            for3Method(c, ja);
+            for3Method(c, ja, x);
             
         }
     }
     public static JSONArray rowToJSONArray(JSONTokener x) throws JSONException {
         JSONArray ja = new JSONArray();
-        for2Method(ja);
+        for2Method(ja, x);
         
     }
 
@@ -245,14 +244,15 @@ public class CDL {
           } 
     }
     public static void if1Method(Object o,StringBuffer sb) {
-    if (o != null) {
-        String s = o.toString();
-        if2Method(s, sb);
+    	String s = o.toString();
+    	if (o != null) {
+        
+        if2Method(s, sb);}
       else {
             sb.append(s);
         }
     }
-    }
+    
     public static void for4Method(StringBuffer sb,JSONArray ja ) {
     	for (int i = 0; i < ja.length(); i += 1) {
             if (i > 0) {
