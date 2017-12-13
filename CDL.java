@@ -57,7 +57,7 @@ public class CDL {
      * @return The value string, or null if empty.
      * @throws JSONException if the quoted string is badly formed.
      */
-	public static void for1(char c, char q, StringBuffer sb,JSONTokener x ) {
+	public static void for1(char c, char q, StringBuffer sb,JSONTokener x ) {//mio
 		for (;;) {
     		c = x.next();
     		if (c == q) {
@@ -69,7 +69,7 @@ public class CDL {
             sb.append(c);
     	}
 	}
-	public static String switchMethodString(char q, char c,StringBuffer sb,JSONTokener x) {
+	public static String switchMethodString(char q, char c,StringBuffer sb,JSONTokener x) {//mio
 		 switch (c) {
 	        case 0:
 	            return null;
@@ -104,11 +104,12 @@ public class CDL {
      * @return A JSONArray of strings.
      * @throws JSONException
      */
-    public static JSONArray ifMethod(char c,JSONArray ja) {
+    public static JSONArray ifMethod(char c,JSONArray ja) {//mio
     	if (c == '\n' || c == '\r' || c == 0) {
             return ja;
     }
-    public static void for3Method(char c,JSONArray ja,JSONTokener x) {
+    }
+    public static void for3Method(char c,JSONArray ja,JSONTokener x) {//mio
     	for (;;) {                
             if (c == ',') {
                 break;
@@ -122,8 +123,8 @@ public class CDL {
             }
             c = x.next();
         }
-    }
-    public static  Object for2Method( JSONArray ja, JSONTokener x) {
+    
+    public static  Object for2Method( JSONArray ja, JSONTokener x) {//mio
     	for (;;) {
 			String value = getValue(x);
             char c = x.next();
@@ -228,7 +229,7 @@ public class CDL {
      * @param ja A JSONArray of strings.
      * @return A string ending in NEWLINE.
      */
-    public static void if2Method(String s, StringBuffer sb ) {
+    public static void if2Method(String s, StringBuffer sb ) {//mio
     	  if (s.length() > 0 && (s.indexOf(',') >= 0 || s.indexOf('\n') >= 0 || 
           		s.indexOf('\r') >= 0 || s.indexOf(0) >= 0 || 
           		s.charAt(0) == '"')) {
@@ -253,7 +254,7 @@ public class CDL {
         }
     }
     
-    public static void for4Method(StringBuffer sb,JSONArray ja ) {
+    public static void for4Method(StringBuffer sb,JSONArray ja ) {//mio
     	for (int i = 0; i < ja.length(); i += 1) {
             if (i > 0) {
                 sb.append(',');
